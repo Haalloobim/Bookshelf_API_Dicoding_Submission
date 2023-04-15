@@ -1,9 +1,11 @@
 
+const { addBookHandler, getAllBooksHandler } = require('./handler');
+
 const routes = [
     {
         method: 'POST', 
         path: '/books',
-        handler: addBooHandler,
+        handler: addBookHandler,
         options: {
             cors: {
                 origin: ['*'],
@@ -11,9 +13,14 @@ const routes = [
         },
     },
     {
+        method: 'GET', 
+        path: '/books',
+        handler: getAllBooksHandler,
+    },
+    {
         method: '*',
         path: '/{any*}',
-        handler: (request, h) => 'Halaman tidak ditemukan',
+        handler: () => 'Halaman tidak ditemukan',
     },
 ];
 

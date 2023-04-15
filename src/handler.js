@@ -1,7 +1,7 @@
 const { nanoid } = require('nanoid');
 const books = require('./books');
 
-const addNoteHandler = (request, h) => {
+const addBookHandler = (request, h) => {
   const id = nanoid(16);
   const { name, year, author, summary, publisher, pageCount, readPage, reading } = request.payload;
   const finished = (readPage == pageCount) ? true : false; 
@@ -51,3 +51,23 @@ const addNoteHandler = (request, h) => {
   response.code(500);
   return response;
 };
+
+const getAllBooksHandler = ()  => {
+    const response = h.response ({
+        status : 'succes', 
+        message : ' Buku berhasil ditambahkan', 
+        data: {
+            books: books.map((buku) => ({
+                id : buku.id, 
+                name : buku.name, 
+                publisher : buku.publisher,  
+            })),
+        },
+    });
+    response.code(200); 
+    return response; 
+};
+
+
+
+module.exports = { addBookHandler, getAllBooksHandler };
