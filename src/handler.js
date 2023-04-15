@@ -55,7 +55,7 @@ const addBookHandler = (request, h) => {
 const getAllBooksHandler = ()  => {
     const response = h.response ({
         status : 'succes', 
-        message : ' Buku berhasil ditambahkan', 
+        message : 'Semua buku berhasil ditampilkan', 
         data: {
             books: books.map((buku) => ({
                 id : buku.id, 
@@ -68,6 +68,30 @@ const getAllBooksHandler = ()  => {
     return response; 
 };
 
+const getBooksByIdHandler = (request, h) => {
+    const { id } = request.params;
+  
+    const buku = books.filter((temp) => temp.id === id)[0];
+  
+    if (buku !== undefined) {
+        const response  = h.response({
+            status: 'success', 
+            message: 'Buku ditemukan',
+            data: {
+                buku, 
+            },
+        });
+        response.code(200);
+        return response;
+    }
+  
+    const response = h.response({
+      status: 'fail',
+      message: 'Buku tidak ditemukan',
+    });
+    response.code(404);
+    return response;
+  };
 
 
-module.exports = { addBookHandler, getAllBooksHandler };
+module.exports = { addBookHandler, getAllBooksHandler, getBooksByIdHandler };
