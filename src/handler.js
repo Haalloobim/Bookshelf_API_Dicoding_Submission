@@ -15,7 +15,8 @@ const addBookHandler = (request, h) => {
     });
     response.code(400);
     return response; 
-  }
+  } 
+  
   if ( pageCount < readPage ){
     const response = h.response({
         status : 'fail', 
